@@ -14,7 +14,6 @@ def handle_skewness(df, cols_to_log_transform):
     """
     for col in cols_to_log_transform: 
         df[col] = np.log1p(df[col])
-    print(f"Applied log to transform to: {cols_to_log_transform}")
     return df
 
 def create_interaction_features(df): 
@@ -31,6 +30,19 @@ def create_interaction_features(df):
     
     return df
 
+def create_advanced_features(df): 
+
+    df['session_decay_ratio'] = (df['sessions_30d'] + 1) / (df['sessions_90d'] + 1)
+
+    df['order_decay_ratio'] = (df['orders_30d'] + 1) / (df['orders_90d'] + 1)
+    
+    df['session_to_order_conversion'] = df['orders_90d'] / (df['sessions_90d'] + 1)
+    
+    df['gmv_per_reg_day'] = df['gmv_2024'] / (df['reg_days'] + 1)
+    
+    return df 
+
+
 def handle_outliers(df, column_list, lower_quantile = 0.01, upper_quantile= 0.99):
     """
     Caps outliers in specified columns using the quantile-based winsorizing method.
@@ -40,19 +52,23 @@ def handle_outliers(df, column_list, lower_quantile = 0.01, upper_quantile= 0.99
         high = df[col].quantile(upper_quantile)
         df[col] = np.clip(df[col], low, high)
 
-    print(f"Handled outliers for {len(column_list)} columns.")
     return df 
 
-def encode_categorical_features(train_df, test_df, high_cardinality_cols): 
-    """Encodes high-cardinality categorical features using Frequency Encoding."""
+def encode_categorical_features(train_df, val_df, test_df, high_cardinality_cols):
+    """
+    Encodes high-cardinality categorical features using Frequency Encoding.
+    """
+
     for col in high_cardinality_cols: 
-        freq_map = train_df[col].value_counts(normalize=True).to_dict()
+        if col in train_df.columns: 
+            freq_map = train_df[col].value_counts(normalize=True).to_dict()
 
-        train_df[col + '_freq'] = train_df[col].map(freq_map).fillna(0) 
-        test_df[col + '_freq'] = test_df[col].map(freq_map).fillna(0)
+            train_df[col + '_freq'] = train_df[col].map(freq_map).fillna(0)
+            val_df[col + '_freq'] = val_df[col].map(freq_map).fillna(0)
+            test_df[col + '_freq'] = test_df[col].map(freq_map).fillna(0)
 
-        train_df = train_df.drop(columns = [col])
-        test_df = test_df.drop(columns = [col])
+            train_df = train_df.drop(columns=[col])
+            val_df = val_df.drop(columns=[col])
+            test_df = test_df.drop(columns=[col])
 
-    print(f"Applied Frequency Encoding to: {high_cardinality_cols}")
-    return train_df, test_df
+    return train_df, val_df, test_df

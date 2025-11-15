@@ -1,27 +1,38 @@
 RAW_DATA_PATH = '../data/raw/dataset.csv'
 PROCESSED_DATA_PATH = '../data/processed/'
-MODEL_PATH = '../models/'
-FIGURES_PATH = '../reports/figures/'
+MODEL_PATH = '../outputs/models/'            
+FIGURES_PATH = '../outputs/reports/figures/' 
 
 TARGET_VARIABLE = 'churn_label'
 RANDOM_STATE = 42
 
-DROP_FEATURES = ['user_id']
+TEST_SET_SIZE = 0.2
+VALIDATION_SET_SIZE = 0.1875
 
-NUMERICAL_FEATURES = [
+INITIAL_COLS_TO_DROP = [
+    'user_id',
+    'marketing_source',
+    'app_version_major'
+]
+
+
+COLS_TO_LOG_TRANSFORM = [
+    'gmv_2024',
+    'sessions_90d'
+]
+
+HIGH_CARDINALITY_COLS = [
+    'country',
+    'city'
+]
+
+NUMERICAL_COLS_FOR_OUTLIERS = [
     'age',
     'reg_days',
-    'sessions_30d',
-    'sessions_90d',
     'avg_session_duration_90d',
     'median_pages_viewed_30d',
     'search_queries_30d',
     'device_mix_ratio',
-    'orders_30d',
-    'orders_90d',
-    'orders_2024',
-    'aov_2024',
-    'gmv_2024',
     'category_diversity_2024',
     'days_since_last_order',
     'discount_rate_2024',
@@ -33,17 +44,29 @@ NUMERICAL_FEATURES = [
     'emails_click_rate_90d',
     'review_count_2024',
     'avg_review_stars_2024',
-    'rfm_recency',
-    'rfm_frequency',
-    'rfm_monetary'
+    'session_decay_ratio',
+    'order_decay_ratio',
+    'session_to_order_conversion',
+    'gmv_per_session'
 ]
 
-CATEGORICAL_OHE_FEATURES = [
-    'marketing_source',
-    'app_version_major'
-]
+MODELS_TO_TRAIN = ['LogisticRegression', 'XGBoost', 'LightGBM']
 
-CATEGORICAL_TE_FEATURES = [
-    'country',
-    'city'
-]
+MODEL_PARAM_GRIDS = {
+    'LogisticRegression': {
+        'C': [0.1, 1.0, 10.0],
+        'class_weight': ['balanced'] 
+    },
+    'XGBoost': {
+        'n_estimators': [100, 200],
+        'max_depth': [5, 7],
+        'learning_rate': [0.05, 0.1],
+        'scale_pos_weight': [3] 
+    },
+    'LightGBM': {
+        'n_estimators': [100, 200],
+        'learning_rate': [0.05, 0.1],
+        'num_leaves': [31, 50],
+        'class_weight': ['balanced']
+    }
+}

@@ -1,0 +1,17 @@
+pandas
+numpy
+scikit-learn
+
+lightgbm
+xgboost
+
+# Visualization
+matplotlib
+seaborn
+shap
+
+notebook
+ipykernel
+ipywidgets
+
+joblib
