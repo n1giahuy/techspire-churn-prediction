@@ -1,0 +1,5 @@
+Model,Best Score (f1_macro),Best Params
+LightGBM,0.9133293440079997,"{'learning_rate': 0.1, 'n_estimators': 100, 'num_leaves': 31}"
+XGBoost,0.9128845032785569,"{'learning_rate': 0.1, 'max_depth': 5, 'n_estimators': 200}"
+LogisticRegression,0.90895843863404,{'C': 10.0}
+RandomForest,0.8952753202875862,"{'max_depth': 20, 'min_samples_split': 5, 'n_estimators': 200}"
