@@ -30,18 +30,6 @@ def create_interaction_features(df):
     
     return df
 
-def create_advanced_features(df): 
-
-    df['session_decay_ratio'] = (df['sessions_30d'] + 1) / (df['sessions_90d'] + 1)
-
-    df['order_decay_ratio'] = (df['orders_30d'] + 1) / (df['orders_90d'] + 1)
-    
-    df['session_to_order_conversion'] = df['orders_90d'] / (df['sessions_90d'] + 1)
-    
-    df['gmv_per_reg_day'] = df['gmv_2024'] / (df['reg_days'] + 1)
-    
-    return df 
-
 
 def handle_outliers(df, column_list, lower_quantile = 0.01, upper_quantile= 0.99):
     """

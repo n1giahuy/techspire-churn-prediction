@@ -15,7 +15,6 @@ INITIAL_COLS_TO_DROP = [
     'app_version_major'
 ]
 
-
 COLS_TO_LOG_TRANSFORM = [
     'gmv_2024',
     'sessions_90d'
