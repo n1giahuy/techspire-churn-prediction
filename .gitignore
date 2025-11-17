@@ -65,8 +65,6 @@ data/*
 data/processed/*
 !data/processed/.gitkeep
 
-outputs/
-
 # IDE config files
 .vscode/
 .idea/
