@@ -4,7 +4,7 @@
 
 This project tackles the critical business challenge of customer churn for SkilioPay, an e-commerce platform. The core objective was to develop a robust, production-lean machine learning model capable of accurately identifying users at high risk of churning. By leveraging data-driven insights, this model serves as the foundation for targeted retention strategies, aiming to enhance customer loyalty and maximize business ROI.
 
-This repository contains the complete solution developed for the Techspire AI & Data Science Competition (Round 2).
+This repository contains the complete solution developed for the Techspire AI & Data Science Competition (Round 1).
 
 ### Key Achievements
 
@@ -49,8 +49,8 @@ To replicate the project and its results, please follow the steps below.
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/nlgiahuy10/SkilioPay-User-Churn-Prediction.git
-    cd SkilioPay-User-Churn-Prediction
+    git clone https://github.com/n1giahuy/Vietnam_NguyenLamGiaHuy_ADS.git
+    cd Vietnam_NguyenLamGiaHuy_ADS
     ```
 
 2.  **Set Up the Python Environment:** Using a virtual environment is strongly recommended.
