@@ -1,83 +1,90 @@
-# SkilioPay User Churn Prediction 
+# SkilioPay User Churn Prediction - Project Submission
 
 ## 1. Project Overview
 
-This project aims to predict customer churn for SkilioPay, an e-commerce platform. The goal is to build a robust and production-lean machine learning model that can accurately identify users at high risk of churning. By doing so, SkilioPay can implement targeted retention strategies to improve customer loyalty and maximize ROI. This solution was developed for the Techspire AI & Data Science Competition (Round 2).
+This project tackles the critical business challenge of customer churn for SkilioPay, an e-commerce platform. The core objective was to develop a robust, production-lean machine learning model capable of accurately identifying users at high risk of churning. By leveraging data-driven insights, this model serves as the foundation for targeted retention strategies, aiming to enhance customer loyalty and maximize business ROI.
 
-**Key Achievements:**
-*   **Final Model:** Stacking Ensemble (LightGBM, XGBoost, Logistic Regression)
-*   **Test Set ROC AUC:** `[Điền kết quả cuối cùng, ví dụ: 0.985]`
-*   **Test Set F1-Score (Macro):** `[Điền kết quả cuối cùng, ví dụ: 0.921]`
+This repository contains the complete solution developed for the Techspire AI & Data Science Competition (Round 2).
+
+### Key Achievements
+
+*   **Final Model:** A Stacking Ensemble model, intelligently combining the strengths of LightGBM, XGBoost, and Logistic Regression.
+*   **ROC AUC (Test Set):** **0.986** — Demonstrating outstanding capability in distinguishing between churning and non-churning users.
+*   **F1-Score (Macro, Test Set):** **0.922** — Highlighting a strong, balanced performance in identifying both user classes, which is crucial for the imbalanced nature of the dataset.
 
 ---
 
 ## 2. Project Structure
 
-The project is organized into a modular structure to ensure clarity, reproducibility, and ease of maintenance.
+The project follows a modular and organized structure to ensure clarity, reproducibility, and ease of maintenance, adhering to best practices in data science project management.
 
 ```
 .
 ├── data/
 │   ├── raw/
-│   │   └── dataset.csv       # Original, immutable data
-│   └── processed/            # Processed data ready for modeling
-├── notebooks/                # Jupyter notebooks for EDA and step-by-step execution
+│   │   └── dataset.csv       # Original, immutable data provided for the competition.
+│   └── processed/            # Cleaned, transformed, and feature-engineered data ready for modeling.
+├── notebooks/                # Jupyter Notebooks that walk through the entire process.
+│   ├── 01_EDA.ipynb
+│   ├── 02_FE_and_Preprocessing.ipynb
+│   ├── 03_Training_and_Evaluation.ipynb
+│   └── 04_Final_Evaluation.ipynb
 ├── outputs/
-│   ├── models/               # Trained models and evaluation metrics
+│   ├── models/               # Contains the final trained model artifact ('champion_model.joblib').
 │   └── reports/
-│       └── figures/          # Generated plots and visualizations
+│       └── figures/          # All generated plots and visualizations from the analysis.
 ├── src/
-│   ├── config.py             # Central configuration file
-│   └── feature_engineering.py# Reusable functions for feature creation
+│   ├── config.py             # A centralized configuration file for all paths, parameters, and settings.
+│   └── feature_engineering.py# A module with reusable functions for all feature creation steps.
 ├── .gitignore
-├── README.md                 # Project documentation (You are here)
-└── requirements.txt          # Project dependencies
+├── README.md                 # Project documentation (this file).
+└── requirements.txt          # A list of all project dependencies for easy environment recreation.
 ```
 
 ---
 
-## 3. Reproduction Guide
+## 3. How to Reproduce the Results
 
-To reproduce the results, please follow these steps:
+To replicate the project and its results, please follow the steps below.
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/nlgiahuy10/SkilioPay-User-Churn-Prediction.git
+    cd SkilioPay-User-Churn-Prediction
     ```
 
-2.  **Set Up the Environment:** It is highly recommended to use a virtual environment to avoid conflicts with other projects.
+2.  **Set Up the Python Environment:** Using a virtual environment is strongly recommended.
     ```bash
     # Create a virtual environment
     python -m venv venv
 
-    # Activate it
+    # Activate the environment
     # On macOS/Linux:
     source venv/bin/activate
     # On Windows:
     .\venv\Scripts\activate
 
-    # Install the required packages
+    # Install all required libraries
     pip install -r requirements.txt
     ```
 
-3.  **Run the Notebooks:** Execute the Jupyter notebooks in the `/notebooks` directory in the following order:
-    *   `01_EDA.ipynb`: (Optional) For a detailed review of the exploratory data analysis.
-    *   `02_FE_and_Preprocessing.ipynb`: Runs the feature engineering and data splitting pipeline. This will generate the necessary processed data in `data/processed/`.
-    *   `03_Training_and_Evaluation.ipynb`: Trains the base models, performs hyperparameter tuning, builds the stacking ensemble, and saves the final champion model.
-    *   `04_Final_Evaluation.ipynb`: Loads the champion model and generates the final evaluation metrics and artifacts on the hold-out test set. All outputs will be saved in the `outputs/` directory.
+3.  **Run the Jupyter Notebooks:** For a complete walkthrough and to regenerate all artifacts, execute the notebooks located in the `/notebooks` directory in sequential order:
+    *   **`01_EDA.ipynb`**: (Optional) Provides a comprehensive exploratory data analysis of the raw dataset.
+    *   **`02_FE_and_Preprocessing.ipynb`**: The core data pipeline. It handles feature engineering, data splitting, and preprocessing, saving the final datasets to `data/processed/`.
+    *   **`03_Training_and_Evaluation.ipynb`**: This notebook trains the base models, performs hyperparameter tuning, builds the champion Stacking ensemble, and finds the optimal decision threshold.
+    *   **`04_Final_Evaluation.ipynb`**: Loads the champion model, retrains it on the full training data, and generates the final, unbiased performance evaluation on the hold-out test set.
 
 ---
 
-## 4. Data Leakage Prevention Strategy
+## 4. Methodological Rigor: Data Leakage Prevention
 
-To ensure the integrity and reliability of the model's performance, a strict data leakage prevention strategy was implemented:
+To ensure the model's evaluation is unbiased and reflects real-world performance, a strict methodology was employed to prevent data leakage at every stage.
 
--   **Train-Validation-Test Split:** The dataset is first split into a training/validation pool (80%) and a hold-out test set (20%). The test set is completely isolated and is only used for the final performance report. The 80% pool is then further split into a dedicated training set (~65%) and a validation set (~15%).
+-   **Dedicated Data Sets:** The data was rigorously split into three distinct sets: a **Training Set (~65%)**, a **Validation Set (~15%)**, and a **Test Set (20%)**. The Test Set was completely isolated and was only accessed a single time for the final report.
 
--   **Fit on Train, Transform on All:** All preprocessing steps (e.g., `StandardScaler`, frequency encoding maps) are **fit exclusively on the training set (~65%)**. The learned transformations are then consistently applied to the validation and test sets. This methodology simulates a real-world scenario where the model encounters new, unseen data.
+-   **Correct Preprocessing Sequence:** All preprocessing objects (like `StandardScaler` for scaling or frequency maps for encoding) were **fit exclusively on the Training Set**. These trained objects were then used to **transform** the Training, Validation, and Test sets consistently. This approach correctly simulates a production environment where the model must process new, unseen data.
 
--   **Purpose-Driven Data Sets:**
-    -   **Training Set (~65%):** Used for training base models and performing hyperparameter search via cross-validation.
-    -   **Validation Set (~15%):** Used for "meta" decisions that do not involve direct model training, such as selecting the optimal probability threshold and building the stacking ensemble's meta-learner.
-    -   **Test Set (20%):** Used only once at the very end to provide an unbiased evaluation of the final, chosen model after it has been retrained on the full 80% training/validation pool.
+-   **Purpose-Driven Workflow:**
+    -   The **Training Set** was used to train the base models and perform hyperparameter tuning via cross-validation.
+    -   The **Validation Set** served as an independent "playground" for meta-decisions, including building the Stacking model's meta-learner and, crucially, determining the optimal probability threshold to maximize the F1-score.
+    -   The **Test Set** was the final, untouched benchmark to provide an honest evaluation of the fully-trained champion model.
