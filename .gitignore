@@ -79,3 +79,7 @@ data/processed/*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+*.py
+.data
+src/app.py

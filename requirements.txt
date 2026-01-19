@@ -1,7 +1,9 @@
+# Core Data Science
 pandas
 numpy
 scikit-learn
 
+# Machine Learning Models
 lightgbm
 xgboost
 
@@ -9,9 +11,20 @@ xgboost
 matplotlib
 seaborn
 shap
+plotly
 
+# App & Dashboard
+streamlit
+pyyaml
+
+# AI & GenAI
+google-generativeai
+
+# Utilities
+joblib
+pathlib
+
+# Notebook Environment (Standard)
 notebook
 ipykernel
 ipywidgets
-
-joblib

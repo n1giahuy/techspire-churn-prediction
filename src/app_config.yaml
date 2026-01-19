@@ -1,0 +1,24 @@
+# src/app_config.yaml
+
+system:
+  app_title: "Executive Dashboard"
+  app_icon: "🚀"
+  layout: "wide"
+
+paths:
+  model: "outputs/models/champion_model.joblib"
+
+  demo_data: "data/processed/X_test.csv"
+  demo_labels: "data/processed/y_test.csv"
+
+model:
+  default_threshold: 0.62
+
+display_columns:
+  days_since_last_order: "Days Inactive"
+  avg_csat_2024: "CSAT Score"
+  gmv_2024: "Total Spend (SGD)"
+  emails_open_rate_90d: "Email Open Rate"
+  sessions_90d: "Sessions"
+  prediction_score: "Churn Risk %"
+  churn_prediction: "Status"
